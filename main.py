@@ -5,6 +5,7 @@ import json
 from azure.storage.blob import ContainerClient, ContentSettings
 from dotenv import load_dotenv
 import os
+import sys
 
 
 # Load environment variables
@@ -120,5 +121,25 @@ def push_headlines_to_container(json_list):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    headlines = fetch_headlines('MSFT')
+
+    ticker_symbol = ""
+
+    # Exclude the name of the script itself
+    arguments_count = len(sys.argv)-1
+
+    if arguments_count <= 0:
+        print("Please specify one ticker symbol, such as \'MSFT\'.")
+        sys.exit()
+    elif arguments_count >= 2:
+        print("Too many arguments. Please specify just one ticker symbol.")
+        sys.exit()
+    else: # Just one argument specified
+        ticker_symbol = sys.argv[1]
+
+    print(f"Pulling the feed revelant to ticker symbol: \'{ticker_symbol}\'!")
+
+    headlines = fetch_headlines(ticker_symbol)
+    print(f"Successfully parsed through the feed")
+
     push_headlines_to_container(headlines)
+    print(f"Successfully pushed headlines to Azure Container")
