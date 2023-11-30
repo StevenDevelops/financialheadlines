@@ -1,5 +1,18 @@
 # Financial Headlines
-A Python script to get financial headlines from NASDAQ feed
+A Python script to get financial headlines from NASDAQ feed, and pushes those headlines to your Azure container. 
+Each headline in your container would look like this
+```json
+{
+ "headline": "Could Investing in the Nasdaq-100 Help You Retire a Millionaire?",
+ "timestamp": "Thu, 30 Nov 2023 12:15:00 +0000",
+ "datasource": "https://www.nasdaq.com/articles/could-investing-in-the-nasdaq-100-help-you-retire-a-millionaire",
+ "description": "While some may consider index fund investing boring, there is no easier way to put yourself on a path to success than consistently adding to an index fund. In fact, I'd argue that many investors would be better suited to doing this than buying individual stocks they don't have th",
+ "symbols": [
+  "GOOG",
+  "AAPL",
+ ]
+}
+```
 
 ## Setting up your environment
 
