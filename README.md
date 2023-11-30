@@ -13,6 +13,8 @@ BLOB_CONTAINER_NAME=yourcontainername
 file
 
 ## How to run script
+Specify one ticker symbol, such as `MSFT` as an argument. The script will pull the feed based on the ticker symbol
+you provide. The script has no support for more than 1 symbol.
 ```commandline
-python3 main.py
+python3 main.py MSFT
 ```
