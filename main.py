@@ -35,17 +35,15 @@ def parse_response(content):
     # Store all json in this resulting list
     full_payload = []
 
-    # Parse through each node in the XML document
+    # Parse through each Node in the XML document
     for node in root.iter('item'):
         headline = node.find('title').text
         timestamp = node.find('pubDate').text
         datasource = node.find('link').text
         description = node.find('description').text.strip()
 
-        # if description == "":
-        #     description = ''.join(node.find('description').itertext()).strip()
-
-        # Empty description means it's in paragraph format, so extract it
+        # If description is still empty, no parse happened...
+        # It's in paragraph format, so extract text this way
         if description == "":
             for paragraph in root.iter('p'):
                 description += " " + paragraph.text.strip()
@@ -68,12 +66,9 @@ def parse_response(content):
             "symbols": symbols
         }
 
-        # json_object = json.dumps(payload, indent=1)
-
         full_payload.append(payload)
-        #print(json_object)
 
-    # A list of json-formatted strings
+    # A list of dictionaries representing json payload
     return full_payload
 
 
@@ -94,21 +89,6 @@ def push_headlines_to_container(json_list):
 
     # Push each blob to container if it doesn't exist in container
     for json_dict in json_list:
-        # # Specify the name of the blob in the container
-        # headline_url = json_dict['datasource']
-        #
-        # # Convert the headline into a hash (unique identifier)
-        # hashed_headline_url = str(hash(headline_url))
-        #
-        # blob_client = blob_service_client.get_blob_client(container=container_name,
-        #                                                   blob=hashed_headline_url)
-        #
-        # # Convert json dictionary to stringified json and upload
-        # data = json.dumps(json_dict, indent=1)
-        # blob_client.upload_blob(data, blob_type="BlockBlob")
-
-        # Connect to Container Client
-
         # Get the headline URL
         headline_url = json_dict['datasource']
 
@@ -142,11 +122,3 @@ def push_headlines_to_container(json_list):
 if __name__ == '__main__':
     headlines = fetch_headlines('MSFT')
     push_headlines_to_container(headlines)
-
-    # push_headlines_to_container()
-    #
-    # I can convert the headline link into a hash, and use that hash as the blob storage name
-    # Instead of doing h1.json, we can use a more meaningful name like the unique hash of the link
-    # to ensure uniqueness
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
