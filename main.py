@@ -113,6 +113,7 @@ def push_headlines_to_container(json_list):
             overwrite=False
         )
 
+
 def check_env_variables():
     if not blob_connection_string or not container_name \
             or container_name == "yourcontainername" or blob_connection_string == "storage connection string in quotes":
