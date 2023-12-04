@@ -19,7 +19,7 @@ Each headline in your container would look like this
 * You first want to create a Storage Account, with a Container in Azure
 * At the project root, create an `.env` file with the following variables
 ```text
-BLOB_CONNECTION_STRING="DefaultEndpointsProtocol=https;AccountName ...rest of your Storage connection string in quotes"
+BLOB_CONNECTION_STRING="storage connection string in quotes"
 BLOB_CONTAINER_NAME=yourcontainername
 ```
 * From your Storage account, paste your blob storage connection string, and blob storage container name into the `.env`
