@@ -14,7 +14,7 @@ Each headline in your container would look like this
 }
 ```
 
-## Setting up your environment
+## Setting up your environment variables
 
 * You first want to create a Storage Account, with a Container in Azure
 * At the project root, create an `.env` file with the following variables
@@ -24,6 +24,12 @@ BLOB_CONTAINER_NAME=yourcontainername
 ```
 * From your Storage account, paste your blob storage connection string, and blob storage container name into the `.env`
 file
+
+## Install any required Python libraries
+Before running the script, you may want to run at project root
+```commandline
+pip3 install -r requirements.txt
+```
 
 ## How to run script
 Specify one ticker symbol, such as `MSFT` as an argument. The script will pull the feed based on the ticker symbol
