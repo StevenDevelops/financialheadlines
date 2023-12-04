@@ -7,12 +7,7 @@ from dotenv import load_dotenv
 import os
 import sys
 
-
 # Load environment variables
-# TO DO: Want to print these env variables
-# Throw some errors when required varibles aren't set
-# Make the script take in Ticker Symbols as parameter
-# Create a README on how to run
 load_dotenv()
 blob_connection_string = os.getenv("BLOB_CONNECTION_STRING")
 container_name = os.getenv("BLOB_CONTAINER_NAME")
@@ -118,9 +113,17 @@ def push_headlines_to_container(json_list):
             overwrite=False
         )
 
+def check_env_variables():
+    if not blob_connection_string or not container_name \
+            or container_name == "yourcontainername" or blob_connection_string == "storage connection string in quotes":
+        print("Error: Either blob_connection_string or container_name was not set. Exiting...")
+        sys.exit()
+
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
+    # Exit the program if your env variables aren't set
+    check_env_variables()
 
     ticker_symbol = ""
 
@@ -136,7 +139,7 @@ if __name__ == '__main__':
     else: # Just one argument specified
         ticker_symbol = sys.argv[1]
 
-    print(f"Pulling the feed revelant to ticker symbol: \'{ticker_symbol}\'!")
+    print(f"Pulling the feed revelant to ticker symbol: \'{ticker_symbol}\'")
 
     headlines = fetch_headlines(ticker_symbol)
     print(f"Successfully parsed through the feed")
